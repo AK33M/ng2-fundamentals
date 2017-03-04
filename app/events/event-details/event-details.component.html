@@ -14,15 +14,31 @@
             <div><strong>Price:</strong> {{event?.price | currency: 'EUR': true}}</div>
         </div>
         <div class="col-md-6">
-        <address *ngIf="event?.address">
-          <strong>Address:</strong><br />
-          {{event?.location?.address}}<br />
-          {{event?.location?.city}} {{event?.location?.country}}
-        </address>
-        <div *ngIf="event?.onlineUrl">
-          <strong>Online URL: </strong>
-          <p>{{event?.onlineUrl}}</p>
-        </div>
+            <address *ngIf="event?.address">
+              <strong>Address:</strong><br />
+              {{event?.location?.address}}<br />
+              {{event?.location?.city}} {{event?.location?.country}}
+            </address>ó
+            <div *ngIf="event?.onlineUrl">
+                <strong>Online URL: </strong>
+                <p>{{event?.onlineUrl}}</p>
+            </div>
         </div>
     </div>
+
+    <hr>
+    <div class="row">
+      <div class="col-md-2">
+        <h3 style="margin:0">
+          Sessions
+        </h3>
+      </div>
+      <div class="col-md-2">
+        <a class="" (click)="addSession()">Add Session</a>
+      </div>
+    </div>
+    <session-list *ngIf="!addMode" [sessions]="event?.sessions">
+    </session-list>
+    <create-session *ngIf="addMode" (saveNewSession)="saveNewSession($event)" (cancelAddSession)="cancelAddSession()"></create-session>
+
 </div>
