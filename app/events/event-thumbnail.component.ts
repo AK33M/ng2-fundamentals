@@ -5,14 +5,14 @@ import { IEvent } from './shared/index'
     selector: 'event-thumbnail',
     template: `
     <div class="well hoverwell thumbnail" [routerLink]="['/events', event.id]">
-        <h2>{{event?.name}}</h2>
-        <div>Date: {{event?.date}}</div>
+        <h2>{{event?.name | uppercase }}</h2>
+        <div>Date: {{event?.date | date: 'd/M/y'}}</div>
         <div [ngStyle]="getStartTimeStyle()" [ngSwitch]="event?.time">Time: {{event?.time}}
           <span *ngSwitchCase="'8:00 am'">(Early Start)</span>
           <span *ngSwitchCase="'10:00 am'">(Late Start)</span>
           <span *ngSwitchDefault>(Normal Start)</span>
         </div>
-        <div>Price: {{event?.price | currency }}</div>
+        <div>Price: {{event?.price | currency : 'EUR': true }}</div>
         <div *ngIf="event?.location">
             <span>Location: {{event?.location.address}}</span>
             <span class="pad-left">{{event?.location.city}}, {{event?.location.country}}</span>
