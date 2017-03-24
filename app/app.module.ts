@@ -19,12 +19,13 @@ import {
 
 import {EventsAppComponent} from "./events-app.component";
 import {NavBarComponent} from "./nav/navbar.component";
-import {ToastrService} from './common/toastr.service'
+import {TOASTR_TOKEN, Toastr} from './common/toastr.service'
 import {Error404Component} from './errors/404.component'
-import{CollapsibleWellComponent} from './common/collapsible-well.component'
+import {CollapsibleWellComponent} from './common/collapsible-well.component'
 
 
 import {appRoutes}from './routes'
+declare let toastr: Toastr
 
 @NgModule({
     imports: [
@@ -48,8 +49,10 @@ import {appRoutes}from './routes'
     ],
     providers: [
         EventService,
-        ToastrService,
-        EventRouteActivator,
+        {
+            provide: TOASTR_TOKEN, useValue: toastr
+        },
+        { provide: EventRouteActivator, useClass: EventRouteActivator },// this is a longhand version for providing services.
         EventListResolver,
         AuthService,
         { provide: 'canDeactivateCreateEvent', useValue: checkDirtyState }
