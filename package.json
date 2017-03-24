@@ -16,14 +16,17 @@
     }
   ],
   "dependencies": {
-    "@angular/common": "~2.2.0",
-    "@angular/compiler": "~2.2.0",
-    "@angular/core": "~2.2.0",
-    "@angular/forms": "~2.2.0",
-    "@angular/http": "~2.2.0",
-    "@angular/platform-browser": "~2.2.0",
-    "@angular/platform-browser-dynamic": "~2.2.0",
-    "@angular/router": "~3.2.0",
+    "@angular/animations": "^4.0.0",
+    "@angular/common": "^4.0.0",
+    "@angular/compiler": "^4.0.0",
+    "@angular/compiler-cli": "^4.0.0",
+    "@angular/core": "^4.0.0",
+    "@angular/forms": "^4.0.0",
+    "@angular/http": "^4.0.0",
+    "@angular/platform-browser": "^4.0.0",
+    "@angular/platform-browser-dynamic": "^4.0.0",
+    "@angular/platform-server": "^4.0.0",
+    "@angular/router": "^4.0.0",
     "@angular/upgrade": "~2.2.0",
     "core-js": "~2.4.1",
     "ng2f-bootstrap": "~0.0.4",
@@ -32,6 +35,7 @@
     "rxjs": "5.0.0-beta.12",
     "systemjs": "0.19.40",
     "toastr": "^2.1.2",
+    "typescript": "^2.2.1",
     "zone.js": "~0.6.26"
   },
   "devDependencies": {
