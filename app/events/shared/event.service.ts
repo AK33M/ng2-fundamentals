@@ -1,32 +1,52 @@
-import {Injectable} from '@angular/core'
+import {Injectable, EventEmitter} from '@angular/core'
 import {Subject, Observable} from 'rxjs/RX'
-import {IEvent } from './event.model'
+import {IEvent, ISession } from './event.model'
 
 @Injectable()
 export class EventService {
-    getEvents():Observable<IEvent[]> {
+    getEvents(): Observable<IEvent[]> {
         let subject = new Subject<IEvent[]>()
         setTimeout(() => { subject.next(EVENTS); subject.complete(); }, 100)
         return subject
     }
 
-    getEventById(id: number):IEvent {
+    getEventById(id: number): IEvent {
         return EVENTS.find(event => event.id === id);
     }
 
-    saveEvent(event){
-      event.id = EVENTS.length + 1
-      event.session = []
-      EVENTS.push(event)
+    saveEvent(event) {
+        event.id = EVENTS.length + 1
+        event.session = []
+        EVENTS.push(event)
     }
 
-    updateEvent(event){
-      let index = EVENTS.findIndex(x=>x.id == event.id)
-      EVENTS[index] = event
+    updateEvent(event) {
+        let index = EVENTS.findIndex(x => x.id == event.id)
+        EVENTS[index] = event
+    }
+
+    searchSessions(searchTerm: string) {
+        var term = searchTerm.toLocaleLowerCase();
+        var results: ISession[] = [];
+
+        EVENTS.forEach(event => {
+            var matchingSessions = event.sessions.filter(session => session.name.toLocaleLowerCase().indexOf(term) > -1);
+            matchingSessions = matchingSessions.map((session: any) => {
+                session.eventId = event.id;
+                return session;
+            })
+            results = results.concat(matchingSessions);
+        })
+
+        var emitter = new EventEmitter(true);
+        setTimeout(() => {
+            emitter.emit(results);
+        }, 100);
+        return emitter;
     }
 }
 
-const EVENTS : IEvent[] = [
+const EVENTS: IEvent[] = [
     {
         id: 1,
         name: 'Angular Connect',
@@ -169,7 +189,7 @@ const EVENTS : IEvent[] = [
     {
         id: 3,
         name: 'ng-conf 2037',
-        date:new Date( '5/4/2037'),
+        date: new Date('5/4/2037'),
         time: '9:00 am',
         price: 759.00,
         imageUrl: '/app/assets/images/ng-conf.png',

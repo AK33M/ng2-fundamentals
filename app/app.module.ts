@@ -19,13 +19,20 @@ import {
 
 import {EventsAppComponent} from "./events-app.component";
 import {NavBarComponent} from "./nav/navbar.component";
-import {TOASTR_TOKEN, Toastr} from './common/toastr.service'
-import {Error404Component} from './errors/404.component'
-import {CollapsibleWellComponent} from './common/collapsible-well.component'
+import {
+    JQ_TOKEN,
+    TOASTR_TOKEN,
+    Toastr,
+    CollapsibleWellComponent,
+    SimpleModalComponent,
+    ModalTriggerDirective
+} from './common/index';
+import {Error404Component} from './errors/404.component';
 
 
 import {appRoutes}from './routes'
-declare let toastr: Toastr
+declare let toastr: Toastr;
+declare let jQuery: Object;
 
 @NgModule({
     imports: [
@@ -45,12 +52,17 @@ declare let toastr: Toastr
         CreateSessionComponent,
         SessionListComponent,
         CollapsibleWellComponent,
+        SimpleModalComponent,
+        ModalTriggerDirective,
         DurationPipe
     ],
     providers: [
         EventService,
         {
             provide: TOASTR_TOKEN, useValue: toastr
+        },
+        {
+            provide: JQ_TOKEN, useValue: jQuery
         },
         { provide: EventRouteActivator, useClass: EventRouteActivator },// this is a longhand version for providing services.
         EventListResolver,
