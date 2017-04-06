@@ -27,8 +27,7 @@ export class NavBarComponent {
     ngOnInit() {
         this.eventService.getEvents().subscribe((response)=>{
           this.events = response;
-        });
-        console.log(this.events);
+        })
     }
 
     searchSessions(searchTerm) {
