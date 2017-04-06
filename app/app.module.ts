@@ -11,7 +11,7 @@ import {
     EventService,
     EventDetailsComponent,
     CreateEventComponent,
-    EventRouteActivator,
+    EventResolver,
     EventListResolver,
     CreateSessionComponent,
     SessionListComponent,
@@ -71,7 +71,7 @@ declare let jQuery: Object;
         {
             provide: JQ_TOKEN, useValue: jQuery
         },
-        { provide: EventRouteActivator, useClass: EventRouteActivator },// this is a longhand version for providing services.
+        { provide: EventResolver, useClass: EventResolver },// this is a longhand version for providing services.
         EventListResolver,
         AuthService,
         VoterService,

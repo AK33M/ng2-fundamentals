@@ -24,30 +24,31 @@ export class EventDetailsComponent {
 
     }
     ngOnInit() {
-        this.route.params.forEach((params: Params) => {
-          this.event = this.eventService.getEventById(+params['id']);
-          this.resetState();
-        });
+        this.route.data.forEach((data) => {
+            this.event = data['event'];
+            this.resetState();
+        })
     }
 
-    resetState(){
-      this.addMode = false;
-      this.filterBy = 'all';
-      this.sortBy = 'votes';
+
+    resetState() {
+        this.addMode = false;
+        this.filterBy = 'all';
+        this.sortBy = 'votes';
     }
 
-    addSession(){
-      this.addMode = true;
+    addSession() {
+        this.addMode = true;
     }
 
-    saveNewSession(session:ISession){
-      const nextId = Math.max.apply(null, this.event.sessions.map(s=>s.id));
-      session.id = nextId + 1
-      this.event.sessions.push(session)
-      this.eventService.updateEvent(this.event)
-      this.addMode = false
+    saveNewSession(session: ISession) {
+        const nextId = Math.max.apply(null, this.event.sessions.map(s => s.id));
+        session.id = nextId + 1
+        this.event.sessions.push(session)
+        this.eventService.updateEvent(this.event)
+        this.addMode = false
     }
-    cancelAddSession(){
-      this.addMode = false
+    cancelAddSession() {
+        this.addMode = false
     }
 }
