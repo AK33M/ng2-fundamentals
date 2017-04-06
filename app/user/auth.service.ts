@@ -1,16 +1,32 @@
 import {Injectable} from '@angular/core';
-import {IUser} from './user.model'
+import {IUser} from './user.model';
+import {Http, Response, RequestOptions, Headers } from '@angular/http';
+import {Observable} from 'rxjs/Rx';
 
 @Injectable()
 export class AuthService {
     currentUser: IUser
+
+    constructor(private http: Http) {
+
+    }
+
     loginUser(userName: string, password: string) {
-        this.currentUser = {
-            id: 1,
-            userName: userName,
-            firstName: 'John',
-            lastName: 'Papa'
-        }
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+
+        let loginInfo = {
+            username: userName,
+            password: password
+        };
+
+        return this.http.post('/api/login', loginInfo, options).do(resp => {
+            if (resp) {
+                this.currentUser = <IUser>resp.json().user;
+            }
+        }).catch(error => {
+            return Observable.of(false);
+        })
     }
 
     isAuthenticated() {
@@ -18,8 +34,7 @@ export class AuthService {
     }
 
     updateCurrentUser(firstName: string, lastName: string) {
-        this.currentUser.firstName = firstName
-        this.currentUser.lastName = lastName
-
+        this.currentUser.firstName = firstName;
+        this.currentUser.lastName = lastName;
     }
 }
