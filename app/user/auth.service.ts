@@ -41,15 +41,20 @@ export class AuthService {
                 return {}
             }
         })
-        .do(currentUser => {
-          if(!!currentUser.userName){
-            this.currentUser = currentUser;
-          }
-        }).subscribe();
+            .do(currentUser => {
+                if (!!currentUser.userName) {
+                    this.currentUser = currentUser;
+                }
+            }).subscribe();
     }
 
     updateCurrentUser(firstName: string, lastName: string) {
         this.currentUser.firstName = firstName;
         this.currentUser.lastName = lastName;
+
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+
+        return this.http.put(`/api/users/${this.currentUser.id}`, JSON.stringify(this.currentUser), options);
     }
 }
