@@ -3,6 +3,7 @@ import {BrowserModule} from "@angular/platform-browser";
 import {RouterModule} from '@angular/router'
 import {AuthService} from './user/auth.service';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {HttpModule} from '@angular/http';
 
 import {
     EventsListComponent,
@@ -42,6 +43,7 @@ declare let jQuery: Object;
         BrowserModule,
         FormsModule,
         ReactiveFormsModule,
+        HttpModule,
         RouterModule.forRoot(appRoutes)
     ],
     declarations: [
